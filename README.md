@@ -1,5 +1,20 @@
 # AngularExam
 
+Test profiles : 
+        User1:
+            email :ava@email.com
+            password : 123456789   
+        User2:
+            email: oliv@email.com
+            password : 123456789
+        User3:
+            email:new@email.com
+            password : 123456789
+        User4:
+            email: some@email.com
+            password : 123456789
+
+
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 16.2.12.
 
 ## Development server
