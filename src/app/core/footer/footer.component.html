@@ -1,0 +1,17 @@
+<footer class="footer">
+    <div class="social-icon">
+      <a class="social-icon__link" href="#" (mouseenter)="hoverIcon(true, 0)" (mouseleave)="hoverIcon(false, 0)">
+        <i class="fa-brands fa-linkedin" aria-hidden="true" [@iconHover]="iconStates[0]"></i>
+      </a>
+      <a class="social-icon__link" href="#" (mouseenter)="hoverIcon(true, 1)" (mouseleave)="hoverIcon(false, 1)">
+        <i class="fa-brands fa-square-facebook" aria-hidden="true" [@iconHover]="iconStates[1]"></i>
+      </a>
+      <a class="social-icon__link" href="#" (mouseenter)="hoverIcon(true, 2)" (mouseleave)="hoverIcon(false, 2)">
+        <i class="fa-brands fa-square-twitter" aria-hidden="true" [@iconHover]="iconStates[2]"></i>
+      </a>
+      <a class="social-icon__link" href="#" (mouseenter)="hoverIcon(true, 3)" (mouseleave)="hoverIcon(false, 3)">
+        <i class="fa-brands fa-instagram" aria-hidden="true" [@iconHover]="iconStates[3]"></i>
+      </a>
+    </div>
+    <p>&copy;SoftUni Angular Course | All Rights Reserved</p>
+  </footer>

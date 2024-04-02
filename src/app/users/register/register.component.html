@@ -1,0 +1,54 @@
+<div class="app-register-form">
+  <!-- <app-errors [errorMessage]="errorMessage" *ngIf="errorMessage"></app-errors> -->
+  <h2>Register</h2>
+  <form [formGroup]="registerForm" (ngSubmit)="onFormSignUp()">
+    <div class="form-input">
+      <label>Username</label>
+      <input 
+        formControlName="displayName" 
+        type="text" 
+        placeholder="username">
+      <mat-error *ngIf="displayName?.touched && displayName?.errors?.['required']">Username is required</mat-error>
+    </div>
+    
+    <div class="form-input">
+      <label>Email Address</label>
+      <input 
+        formControlName="email" 
+        type="email" 
+        placeholder="some@email.com">
+      <mat-error *ngIf="email?.touched && email?.errors?.['required']">Email Address is required</mat-error>
+      <mat-error *ngIf="email?.errors?.['email']">Email Address is not valid</mat-error>
+    </div>
+   
+    <div class="form-input">
+      <label>Password</label>
+      <input 
+        formControlName="password" 
+        type="password" 
+        [placeholder]="'*'.repeat(8)">
+      <mat-error *ngIf="password?.touched && password?.errors?.['required']">Password is required.</mat-error>
+      <mat-error *ngIf="password?.errors?.['minlength']">Password needs to be at least 8 characters long.</mat-error>
+    </div>
+    <div class="form-input">
+      <label>Confirm Password</label>
+      <input 
+        formControlName="confirmPassword" 
+        type="password" 
+        [placeholder]="'*'.repeat(8)">
+      <mat-error *ngIf="confirmPassword?.touched && confirmPassword?.errors?.['required']">Confirm your password</mat-error>
+      <mat-error *ngIf="registerForm.errors?.['passwordDontMatch']">Password does not match</mat-error>
+    </div>
+    <button 
+      type="submit" 
+      class="app-register-btn"
+      [class.disabled-button]="registerForm.invalid"
+      [disabled]="registerForm.invalid"
+    >
+      Register
+    </button>
+    <p>You have an account already? 
+      <button class="app-toggle-btn" routerLink="/auth/login">Log In</button>
+    </p>
+  </form>
+</div>

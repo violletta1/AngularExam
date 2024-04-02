@@ -1,0 +1,38 @@
+
+
+<div class="app-login-form ">
+    
+    <!-- <app-errors [errorMessage]="errorMessage" *ngIf="errorMessage"></app-errors> -->
+      <h2>Login</h2>
+      <form [formGroup]="loginForm" (ngSubmit)="submitLogin()" >
+          <div class="form-input">
+              <label>Email Address</label>
+              <input 
+              matInput
+              type="email" 
+              formControlName="email"
+              placeholder="some@email.com">
+              <mat-error *ngIf="email?.touched && email?.errors?.['required']">Email Address is required</mat-error>
+              <mat-error *ngIf="email?.errors?.['email']">Email Address is not valid</mat-error>
+          </div>
+          <div class="form-input">
+              <label>Password</label>
+              <input matInput
+              type="password" 
+              formControlName="password"
+              placeholder="********">
+              <mat-error *ngIf="password?.touched && password?.errors?.['required']">Password is required</mat-error>     
+              
+          </div>      
+          <button 
+          type="submit" 
+          class="app-login-btn"
+          [class.disabled-button]="loginForm.invalid"
+          [disabled]="loginForm.invalid"
+          >Login</button>
+          <p>Do not have an accout yet? 
+              <button class="app-toggle-btn" routerLink="/auth/register">Register Here.</button>
+          </p>
+      </form>
+    </div>
+    

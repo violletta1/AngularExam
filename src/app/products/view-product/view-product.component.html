@@ -1,0 +1,49 @@
+<div *ngIf="loading">
+  <img class="message" src="../../../assets/loading.gif" alt="Loading">
+</div>
+
+
+<div class="main-container">
+  <h1 class="title">My products</h1><br><br>
+<div *ngIf="!loading">
+  <div class="message" *ngIf="products.length === 0">
+    <img  src="../../../assets/No-products.gif" alt="No products">
+    <button mat-stroked-button color="accent" routerLink="/dashboard" >Back to Dashboard</button>
+  </div>
+  <div *ngIf="!viewProductClicked; else viewProductDetails" class="product-container">
+    <!-- Show products if logged in -->
+    <mat-card *ngFor="let product of products" class="product-item">
+      <mat-card-header>
+        <mat-card-title>Product: {{ product.name | titlecase }}</mat-card-title>
+
+        <mat-card-subtitle> <mat-chip *ngFor="let category of product?.category" color="accent">
+          {{ category }}
+        </mat-chip></mat-card-subtitle>
+      </mat-card-header>
+      <div class="image-container">
+        <div class="example-ripple-container mat-elevation-z4" matRipple [matRippleCentered]="centered" (click)="viewProduct(product)" [matRippleColor]="color">
+          <img  [src]="product.img" alt="User Photo">
+         
+          <ng-template #assetImage>
+            <img [src]="'../assets/' + product.img" alt="Product Image" class="product-image">
+          </ng-template>
+        </div>
+      </div>
+      <mat-card-content>Price: {{ product.price | currency:'USD'}}</mat-card-content>
+      <mat-card-actions>
+        <button mat-stroked-button color="primary" (click)="viewProduct(product)">View</button>
+        <button mat-stroked-button color="accent" (click)="editProduct(product)">Edit</button>
+        <button mat-stroked-button color="warn" (click)="confirmDelete(product)">Delete</button>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+  
+  <ng-template #viewProductDetails>
+   <app-details-product [selectedId]="selectedId" (closeProductDetails)="closeViewProductDetails()"></app-details-product>
+  </ng-template>
+  
+</div>
+<ng-container *ngIf="editProductClicked">
+  <!-- Pass the selectedProduct to the EditProductComponent -->
+  <app-edit-product [product]="selectedProduct" (cancelEdit)="closeEditProduct()" (submitEdit)="submitEditProduct($event)"></app-edit-product>
+</ng-container>

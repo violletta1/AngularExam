@@ -1,0 +1,33 @@
+
+<div class="overlay">
+<div *ngIf="currentProduct" class="popup">
+  <!-- <div class="popup-container"> -->
+    <div class="product-image-container">
+      <img class="product-image" [src]="currentProduct.img" alt="Product Image">
+    </div>
+    <div class="product-details-container">
+      <div class="header">
+        <h1>{{ currentProduct.name }}</h1>
+        <button mat-icon-button (click)="closeViewProductDetails()">
+          <mat-icon>close</mat-icon>
+        </button>
+      </div>
+      <hr>
+      <div class="product-description">
+        <div class="category">
+          <mat-chip-listbox aria-label="Product Categories">
+            <mat-chip *ngFor="let category of currentProduct.category" color="accent">
+              {{ category }}
+            </mat-chip>
+          </mat-chip-listbox>
+        </div>
+        <ul>
+          <li *ngFor="let detail of currentProduct.description?.split('.')">
+            <mat-icon class="success-icon">check_circle</mat-icon> {{ detail }}
+          </li>
+        </ul>
+      </div>
+      <h1 class="price">Price: {{ currentProduct.price | currency:'USD' }}</h1>
+    </div>
+  </div></div>
+<!-- </div> -->

@@ -1,0 +1,45 @@
+.app-header{
+    display: flex;
+    box-shadow: rgba(202, 171, 188, 0.344) 0px 8px 24px;
+}
+h2 {
+     font-family: 'Bavista_Soulare', sans-serif;
+     font-size: 4em;
+     color: pink;
+     cursor: pointer;
+     font-style: italic;
+     letter-spacing: 0.1em;
+     margin: 1rem;
+}
+.app-header-logo{
+    padding: 5px 15px;
+    width: 50%;
+    color: #28282B;
+    /* font-style: italic; */
+}
+.app-header-navbar {
+    /* padding: 20px 30px; */
+    display: flex;
+    justify-content: right;
+    align-items: center;
+
+    width: 50%;
+    text-align: right;
+    margin-right: 50px;
+    
+}
+mat-icon {
+    color: #9c9cae;
+    margin: 0px 2px;
+}
+.app-header-navbar a{
+    font-weight: 500;
+    margin: 0px 10px;
+    text-decoration: none;
+    color: #9c9cae;
+    cursor: pointer;
+}
+.profile-img{
+    border-radius: 100%;
+    margin-left: 8px;
+}

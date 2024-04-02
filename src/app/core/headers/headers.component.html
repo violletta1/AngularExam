@@ -1,0 +1,31 @@
+
+<div class="app-header">
+    <!--APP LOGO-->
+    <div class="app-header-logo">
+        <h2 routerLink="/home">Cosmetics</h2>
+    </div>
+  
+    <!--APP NAVBAR-->
+    <div class="app-header-navbar">
+        <a routerLink="/home">HOME</a>
+        <ng-container *ngIf="user$| async as user;else loginButton">
+            <a routerLink="/dashboard" >DASHBOARD</a>
+
+           <div [matMenuTriggerFor]="userMenu">
+            <!-- <mat-icon>account_circle</mat-icon> -->
+            <img class="profile-img" width="30" height="30" [src]="user.photoURL ?? '../../../assets/img/pink-avt.jpg'" alt="User Photo">
+            <mat-icon>expand_more</mat-icon>
+           </div>    
+        </ng-container>
+
+        <ng-template #loginButton>
+            <a routerLink="/auth/login">LOGIN</a>
+       
+        </ng-template>
+    </div>
+  </div>
+  <!-- DropDown Menu -->
+  <mat-menu #userMenu="matMenu">
+    <button mat-menu-item routerLink="/auth/profile">PROFILE</button>
+    <button mat-menu-item (click)="OnLogout()">LOGOUT</button>
+  </mat-menu>

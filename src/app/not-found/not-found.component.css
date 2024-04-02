@@ -1,0 +1,20 @@
+.error {
+    display: flex;
+    flex-direction: column;
+    /* margin-bottom: 120px;
+    margin-top: 50px; */
+    margin: 100px 80px 120px 80px;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Bavista_Soulare',sans-serif;
+    /* font-style: italic; */
+    
+}
+img {
+    width: 500px;
+}
+p{
+    font-family:Georgia, 'Times New Roman', Times, serif;
+
+    /* font-style: italic; */
+}

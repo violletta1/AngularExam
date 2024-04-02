@@ -1,0 +1,57 @@
+.home-page-container {
+    padding: 50px 100px;
+}
+
+.home-page-content {
+    width: 70%;
+    padding-top: 50px;
+    border-top: #dedede 2px solid;
+    margin-bottom: 120px;
+    font-size: 15px; /* Default font size */
+    font-style: italic;
+}
+
+p {
+    margin-top: 15px;
+}
+.congrats{
+    /* font-style: italic; */
+    font-family: 'DancingScript-Regular', sans-serif;
+    font-size: 45px;
+    display: flex;
+    justify-content: center;
+    font-weight: 500;
+    color: rgb(239, 137, 154);
+
+}
+
+@media screen and (max-width: 600px) {
+    .home-page-container {
+        padding: 20px; /* Adjust padding for smaller screens */
+    }
+
+    .home-page-content {
+        width: 100%; /* Take full width on smaller screens */
+        padding-top: 30px; /* Adjust padding top for smaller screens */
+        border-top-width: 2px; /* Reduce border width for smaller screens */
+        margin-bottom: 80px; /* Adjust margin bottom for smaller screens */
+        font-size: 12px; /* Reduce font size for smaller screens */
+    }
+
+    p {
+        margin-top: 15px; /* Adjust margin top for smaller screens */
+    }
+}
+
+@media screen and (max-width: 580px) {
+    .home-page-content {
+        width: 100%; /* Take full width when screen is larger than 580px */
+        font-size: 12px; /* Increase font size for larger screens */
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .home-page-content {
+        font-size: 12px; /* Further increase font size for even larger screens */
+    }
+}

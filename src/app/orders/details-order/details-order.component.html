@@ -1,0 +1,33 @@
+<div class="main-container">
+<h1 class="title">My basket</h1><br><br>
+  <div class="message" *ngIf="loading">
+    <img src="../../../assets/loading.gif" alt="Loading">
+  </div>
+  
+  <div *ngIf="!loading">
+    <div class="message" *ngIf="userOrders.length === 0">
+      <img src="../../../assets/No-products.gif" alt="No-products">
+    </div>
+    <div *ngIf="userOrders.length > 0">
+      <div class="product-container">
+        <!-- Show user orders -->
+        <mat-card *ngFor="let product of userOrders" class="product-item">
+          <mat-card-header>
+            <mat-card-title>Product: {{ product.name | titlecase }}</mat-card-title>
+            <mat-card-subtitle>
+              <mat-chip *ngFor="let category of product.category" color="accent">{{ category }}</mat-chip>
+            </mat-card-subtitle>
+          </mat-card-header>
+          <div class="image-container">
+            <div class="example-ripple-container mat-elevation-z4" matRipple [matRippleCentered]="centered" (click)="viewProduct(product)" [matRippleColor]="color">
+              <img [src]="product.img || '../../../assets/img/pink-avt.jpg'" alt="Photo">
+            </div>
+          </div>
+          <mat-card-content>Price: {{ product.price }}</mat-card-content>
+        </mat-card>
+      </div>
+      <ng-template #viewProductDetails>
+        <app-details-product [selectedId]="selectedId" (closeProductDetails)="closeViewProductDetails()"></app-details-product>
+      </ng-template>
+    </div>
+  </div></div>
