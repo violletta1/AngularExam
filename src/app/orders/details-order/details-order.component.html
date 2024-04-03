@@ -26,8 +26,8 @@
           <mat-card-content>Price: {{ product.price }}</mat-card-content>
         </mat-card>
       </div>
-      <ng-template #viewProductDetails>
+      <div *ngIf="viewProductClicked" >
         <app-details-product [selectedId]="selectedId" (closeProductDetails)="closeViewProductDetails()"></app-details-product>
-      </ng-template>
+      </div>
     </div>
   </div></div>

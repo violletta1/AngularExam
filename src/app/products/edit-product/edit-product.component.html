@@ -1,13 +1,13 @@
 <p>edit-product works!</p>
-<div class="overlay" *ngIf="!close">
+<div class="overlay" *ngIf="open && product">
     <div class="popup">
       <div class="header"> 
         <h1>Edit Product</h1>   
-        <button mat-icon-button (click)="OnCloseForm()">
+        <button mat-icon-button (click)="closeFormAndReturn()">
           <mat-icon>close</mat-icon>
         </button>
       </div>
-      <form [formGroup]="editProductForm" (ngSubmit)="editProduct()">
+      <form [formGroup]="editProductForm" (ngSubmit)="updateProduct()">
         <label for="name">Name:</label>
         <input type="text" id="name" formControlName="name"><br><br>
   
@@ -25,13 +25,9 @@
           <option *ngFor="let c of category" [value]="c">{{ c }}</option>
         </select>
         <br><br>
-<!--         
-        <label for="img">Image:</label>
-        <input type="file" (change)="onFileSelected($event)" formControlName="img">
-        <br><br> -->
   
         <button mat-stroked-button color="primary" type="submit" [disabled]="editProductForm.invalid">Submit</button>
        
       </form>
     </div>
-  </div>
+</div>

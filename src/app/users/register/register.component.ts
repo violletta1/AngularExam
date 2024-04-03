@@ -24,8 +24,7 @@ export function passwordMatchValidator():ValidatorFn{
   styleUrls: ['./register.component.css']
 })
 export class RegisterComponent implements OnInit {
-  
-  // errorMessage: string | null = null;
+
   
   registerForm =new FormGroup({
     displayName: new FormControl('', Validators.required),

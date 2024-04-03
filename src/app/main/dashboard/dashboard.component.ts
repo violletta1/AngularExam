@@ -48,7 +48,7 @@ export class DashboardComponent implements OnInit {
   }
 
   filterProductsByCategory(category: string): void {
-    console.log('Selected category:', category);
+
     this.selectedCategory = category; // Set the selected category
   
     if (category === 'All') {
@@ -60,61 +60,34 @@ export class DashboardComponent implements OnInit {
         product.category.some(cat => cat.toLowerCase() === category.toLowerCase())
       );
     }
-    console.log('Filtered products:', this.filteredProducts);
   }
-
 
   viewProduct(product: Product): void {
     this.viewProductClicked = true;
     this.selectedId = product.uid;
-  
   }
 
   closeViewProductDetails(): void {
     this.viewProductClicked = false;
     this.selectedId = '';
   }
+  
   orderProduct(event: MouseEvent, product: Product) {
     event.stopPropagation();
     this.userService.getCurrentUserUid().subscribe(
       userId => {
         if (userId) {
           this.orderService.addProductToOrder(product, userId).subscribe(
-            result => {
-              // Handle success
-              this.hotToast.success('Product added successfully');
-            },
+            response => {
+              if (response !== null) {
+                this.hotToast.success('Product added successfully to order collection');
+              }},
             error => {
-              // Handle error
-              this.hotToast.error(`Error adding product to orders ${error}`);
+              this.hotToast.error(`There was an error ${error}`)
             }
-          )
+          );
         }
       }
-    )
+    );
   }
   }
-  // orderProduct(event: MouseEvent, product: Product): void {
-  //   event.stopPropagation();
-  //   this.userService.getCurrentUserUid().subscribe(
-  //     userId => {
-  //       if (userId) {
-  //         this.orderService.setProductToAdd(product, userId).subscribe(
-  //           result => {
-  //             // Handle success
-  //             this.hotToast.success('Product added successfully');
-          
-  //           },
-  //           error => {
-  //             // Handle error
-             
-  //             this.hotToast.error(`Error adding product to orders ${error}`);
-  //           }
-  //         );
-  //       } else {
-  //         this.hotToast.error('User not found');
-        
-  //       }
-  //     }
-  //   );
-  // }

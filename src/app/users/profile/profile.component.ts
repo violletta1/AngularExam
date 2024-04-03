@@ -9,7 +9,7 @@ import { ProfileUser } from 'src/app/types/user-profile';
 import { UntilDestroy,untilDestroyed } from '@ngneat/until-destroy';
 import { Router } from '@angular/router';
 
-// import { untilDestroyed } from '@ngneat/until-destroy';
+
 
 @UntilDestroy()
 @Component({
@@ -39,8 +39,7 @@ export class ProfileComponent implements OnInit {
       lastName: new FormControl(''),
       phoneNumber: new FormControl(''),
       address: new FormControl(''),
-      // products: new FormControl([null]), // Assuming products is an array
-      // orders: new FormControl([null])
+
   });
 
   saveProfile() {

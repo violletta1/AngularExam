@@ -32,7 +32,13 @@
       <mat-card-content>Price: {{ product.price | currency:'USD'}}</mat-card-content>
       <mat-card-actions>
         <button mat-stroked-button color="primary" (click)="viewProduct(product)">View</button>
-        <button mat-stroked-button color="accent" (click)="editProduct(product)">Edit</button>
+        <button mat-stroked-button color="accent"  [routerLink]="'/products/edit/' + product.uid">
+
+        <!-- (click)="editProduct(product)"
+        
+        > -->
+
+        Edit</button>
         <button mat-stroked-button color="warn" (click)="confirmDelete(product)">Delete</button>
       </mat-card-actions>
     </mat-card>
@@ -43,7 +49,7 @@
   </ng-template>
   
 </div>
-<ng-container *ngIf="editProductClicked">
+<!-- <ng-container *ngIf="editProductClicked"> -->
   <!-- Pass the selectedProduct to the EditProductComponent -->
-  <app-edit-product [product]="selectedProduct" (cancelEdit)="closeEditProduct()" (submitEdit)="submitEditProduct($event)"></app-edit-product>
-</ng-container>
+  <!-- <app-edit-product [product]="selectedProduct" (cancelEdit)="closeEditProduct()" (submitEdit)="submitEditProduct($event)"></app-edit-product>
+</ng-container> -->
