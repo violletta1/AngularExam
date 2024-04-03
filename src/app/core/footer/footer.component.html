@@ -6,12 +6,14 @@
       <a class="social-icon__link" href="#" (mouseenter)="hoverIcon(true, 1)" (mouseleave)="hoverIcon(false, 1)">
         <i class="fa-brands fa-square-facebook" aria-hidden="true" [@iconHover]="iconStates[1]"></i>
       </a>
-      <a class="social-icon__link" href="#" (mouseenter)="hoverIcon(true, 2)" (mouseleave)="hoverIcon(false, 2)">
-        <i class="fa-brands fa-square-twitter" aria-hidden="true" [@iconHover]="iconStates[2]"></i>
+      <DIV *ngIf="user$| async as user"> 
+        <a class="social-icon__link" href="/orders/details-order" (mouseenter)="hoverIcon(true, 2)" (mouseleave)="hoverIcon(false, 2)">
+        <i class="fa-solid fa-cart-shopping" aria-hidden="true" [@iconHover]="iconStates[2]"></i>
       </a>
-      <a class="social-icon__link" href="#" (mouseenter)="hoverIcon(true, 3)" (mouseleave)="hoverIcon(false, 3)">
-        <i class="fa-brands fa-instagram" aria-hidden="true" [@iconHover]="iconStates[3]"></i>
+      <a class="social-icon__link" routerLink="/products/" (mouseenter)="hoverIcon(true, 3)" (mouseleave)="hoverIcon(false, 3)">
+        <i class="fa-solid fa-store" aria-hidden="true" [@iconHover]="iconStates[3]"></i>
       </a>
+    </DIV>
     </div>
     <p>&copy;SoftUni Angular Course | All Rights Reserved</p>
   </footer>

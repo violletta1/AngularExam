@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { trigger, state, style, animate, transition } from '@angular/animations';
+import { UsersModule } from 'src/app/users/users.module';
+import { UsersService } from 'src/app/users/users.service';
 
 @Component({
   selector: 'app-footer',
@@ -19,9 +21,11 @@ import { trigger, state, style, animate, transition } from '@angular/animations'
   ]
 })
 export class FooterComponent{
+  
+  user$ = this.userService.getCurrentUserData;
   iconStates: boolean[] = [false, false, false, false];
 
-  constructor() { }
+  constructor(private userService:UsersService) { }
 
   hoverIcon(state: boolean, index: number) {
     this.iconStates[index] = state;
