@@ -4,6 +4,8 @@ import { Product } from 'src/app/types/products';
 import { ProductsService } from '../products.service';
 import { HotToastService } from '@ngneat/hot-toast';
 import { AppService } from 'src/app/app.service';
+import { ActivatedRoute, Router } from '@angular/router';
+import { catchError, Observable, switchMap, tap, throwError } from 'rxjs';
 
 @Component({
   selector: 'app-edit-product',
@@ -11,10 +13,9 @@ import { AppService } from 'src/app/app.service';
   styleUrls: ['./edit-product.component.css']
 })
 export class EditProductComponent implements OnInit{
-  close: boolean = false;
-  @Input() product: Product | null = null;
-  @Output() cancelEdit: EventEmitter<boolean> = new EventEmitter<boolean>();
-  @Output() submitEdit = new EventEmitter<Product>();
+  open: boolean = true;
+  product: Product | null = null;
+
 
   category: string[] = ["Beauty", "Skincare", "Bodycare", "Face"];
   editProductForm!: FormGroup;
@@ -23,35 +24,47 @@ export class EditProductComponent implements OnInit{
     private fb: FormBuilder,
     private productService: ProductsService,
     private hotToast: HotToastService,
-    private appService:AppService
+    private appService:AppService, private routeA: ActivatedRoute,private router:Router
 
   ) {}
   ngOnInit(): void {
-    this.editProductForm = this.fb.group({
-      name: [this.product?.name || '', Validators.required],
-      description: [this.product?.description || '', Validators.required],
-      price: [this.product?.price || '', [Validators.required, Validators.min(0)]],
-      category: [this.product?.category || [], Validators.required],
-      // img: [this.product?.img, Validators.required],
-      userId: [''] // Assuming userId is a ProfileUser object
+    this.routeA.params.pipe(
+      switchMap(params => this.productService.getProductByUid(params['id']))
+    ).subscribe(product => {
+      if (product) {
+        this.product = product;
+        this.initializeForm(product);
+      }
     });
   }
 
-  // Function to handle cancel action
-  OnCloseForm(): void {
-    // Emit cancel event to the parent component
-    this.cancelEdit.emit(false);
-  }
-  // onFileSelected(event: any): void {
-  //   const file: File = event.target.files[0];
-  //   this.editProductForm.patchValue({ img: file });
-  // }
-  editProduct(): void {
-    const updatedProduct: Product = {
-      ...(this.product as Product),
-      ...this.editProductForm.value
-    };
-    this.submitEdit.emit(updatedProduct);
+  initializeForm(product: Product): void {
+    this.editProductForm = this.fb.group({
+      name: [product.name, Validators.required],
+      description: [product.description, Validators.required],
+      price: [product.price, [Validators.required, Validators.min(0)]],
+      category: [product.category, Validators.required],
+    });
   }
 
+  closeFormAndReturn(): void {
+    this.open = false;
+    this.router.navigate(['products']);
+  }
+
+  updateProduct(): void {
+    if (this.editProductForm.invalid) return;
+    const updatedProduct: Product = { ...this.product!, ...this.editProductForm.value };
+    this.productService.updateProduct(updatedProduct)
+      .pipe(
+        tap(() => {
+          this.open = false;
+          this.router.navigate(['products']);
+        }),
+        catchError(error => {
+          console.error('Error updating product:', error);
+          return throwError(error);
+        })
+      ).subscribe();
+  }
 }

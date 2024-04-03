@@ -15,9 +15,8 @@ const routes: Routes = [
 
     { path: 'add-product', component: AddProductComponent, ...canActivate(redirectToLogin) },
     { path: '', component: ViewProductComponent, ...canActivate(redirectToLogin) },
-    { path: ':id/edit', component: EditProductComponent, ...canActivate(redirectToLogin) },
-    // {path: 'details-product/:id', component:DetailsProductComponent, ...canActivate(redirectToLogin)}
-
+    { path: 'edit/:id', component: EditProductComponent, ...canActivate(redirectToLogin) },
+   
 ];
 
 @NgModule({

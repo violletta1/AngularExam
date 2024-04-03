@@ -26,19 +26,15 @@ export class DetailsOrderComponent implements OnInit {
       }
     });
   }
+
   loadUserOrders(uid: string) {
     this.ordersService.getUserOrders(uid).subscribe(
       orders => {
-        console.log(orders);
-        // Clear existing userOrders array
         this.userOrders = [];
-        // Iterate over each order in the response
+
         orders.forEach(order => {
-          console.log(order);
-          // Extract the order details object from the value (the first and only property in the order object)
-          const orderDetails = Object.values(order)[0] as Product;
-          // Push the order details object into userOrders array
-          this.userOrders.push(orderDetails);
+          const products = Object.values(order) as Product[];
+          this.userOrders.push(...products);
         });
       },
       error => {
@@ -46,12 +42,10 @@ export class DetailsOrderComponent implements OnInit {
       }
     );
   }
+  
   viewProduct(product: Product): void {
     this.viewProductClicked = true;
     this.selectedId = product.uid;
-    console.log(this.selectedId);
-    console.log(product);
-    
   }
 
   closeViewProductDetails(): void {

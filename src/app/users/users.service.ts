@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Auth, authState, createUserWithEmailAndPassword, signInWithEmailAndPassword, updateProfile, UserInfo } from '@angular/fire/auth';
-import { doc, docData, Firestore, setDoc, updateDoc } from '@angular/fire/firestore';
+import { collection, doc, docData, Firestore, getDocs, QueryDocumentSnapshot, setDoc, updateDoc } from '@angular/fire/firestore';
 import {  concatMap, from, map, Observable, of, switchMap} from 'rxjs';
 import { ProfileUser } from '../types/user-profile';
+import { untilDestroyed } from '@ngneat/until-destroy';
 
 
 @Injectable({
@@ -34,6 +35,20 @@ export class UsersService {
       })
     )
   }
+  // TODOD:
+  // getAllUserUids(): Observable<string[]> {
+  //   const usersRef = collection(this.firestore, 'users')
+  //   return  from(getDocs(usersRef)).pipe(
+  //     map(snapshot => {
+  //       return snapshot.docs.map(doc=>{
+  //         const user = doc.data()as UserInfo
+  //         return {...user}
+  //       })
+  //     })
+  //   )
+
+  // }
+
   addUser(user: ProfileUser): Observable<any> {
     const ref = doc(this.firestore, 'users', user.uid); // Assuming displayName is the username
     return from(setDoc(ref, user));
@@ -42,11 +57,7 @@ export class UsersService {
     const ref = doc(this.firestore,'users', user.uid)
     return from(updateDoc(ref, {...user}));
   }
-  // getCurrentUserId(): Observable<string | null> {
-  //   return this.currentUser$.pipe(
-  //     map(user => user?.uid || null)
-  //   );
-  // }
+
  get getCurrentUserData():Observable<ProfileUser | null>{
   return this.currentUser$.pipe(
     switchMap((user) => {

@@ -50,14 +50,6 @@ export class ViewProductComponent implements OnInit {
     this.viewProductClicked = false;
     this.selectedId = '';
   }
-  closeEditProduct(){
-    this.editProductClicked = false
-  }
-
-  editProduct(product: Product): void {
-    this.selectedProduct = product; 
-    this.editProductClicked = true
-  }
 
   confirmDelete(product: Product): void {
     const confirmation = confirm(`Are you sure you want to delete ${product.name}?`);
@@ -80,17 +72,4 @@ export class ViewProductComponent implements OnInit {
     });
   }
 
-  submitEditProduct(updatedProduct: Product): void {
-    this.productService.editProduct(updatedProduct.uid, updatedProduct).subscribe({
-      next: () => {
-        this.hotToast.success('Product updated successfully');
-        this.editProductClicked = false;
-        this.ngOnInit(); // Reload products after editing
-      },
-      error: (err) => {
-        this.hotToast.error(`Failed to update product: ${err.message}`);
-        console.error('Error updating product:', err);
-      }
-    });
-  }
 }

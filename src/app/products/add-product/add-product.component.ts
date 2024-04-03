@@ -8,6 +8,8 @@ import { HotToastService } from '@ngneat/hot-toast';
 
 import { AppService } from 'src/app/app.service';
 import { Router } from '@angular/router';
+import { map } from 'rxjs';
+
 
 @Component({
   selector: 'app-add-product',
@@ -18,17 +20,28 @@ export class AddProductComponent implements OnInit {
   close: boolean = false;
   category: string[] = ["Beauty", "Skincare", "Bodycare", "Face"];
   addProductForm!: FormGroup;
+  currentUserUid:string| null = '' 
 
   constructor(
     private fb: FormBuilder,
     private productService: ProductsService,
     private hotToast: HotToastService,
     private appService:AppService,
-    private router:Router
+    private router:Router,private userService:UsersService
 
   ) {}
 
   ngOnInit(): void {
+    this.userService.getCurrentUserUid().subscribe({
+      next: (uid) => {
+        this.currentUserUid = uid;
+      },
+      error: (err) => {
+        console.error('Error fetching current user UID:', err);
+      }
+    });
+  
+
     this.addProductForm = this.fb.group({
       name: ['', Validators.required],
       description: ['', Validators.required],
@@ -50,13 +63,13 @@ export class AddProductComponent implements OnInit {
     if (!this.addProductForm.valid) return;
 
     const productData: Product = {
-      uid: '',
-      ...this.addProductForm.value
+      ...this.addProductForm.value,
+      userId: this.currentUserUid
     };
 
+    
     // Fetch the selected image file from the form control
     const imageFile = this.addProductForm.get('img')?.value;
-  
     const timestamp = Date.now();
     const randomNumber = Math.floor(Math.random() * 10000);
     const uniqueId = `${timestamp}-${randomNumber}`;
@@ -66,9 +79,20 @@ export class AddProductComponent implements OnInit {
       next: (name) => {
         productData.img = name;
         this.productService.addProduct(productData).subscribe({
-          next: () => {
-            this.hotToast.success('Product added successfully');
-            this.OnCloseForm();
+          next: (docRef) => {
+            // Use the document ID as the UID for the product
+            const productId = docRef.id;
+            productData.uid = productId;
+
+            this.productService.updateProduct(productData).subscribe({
+              next: () => {
+                this.hotToast.success('Product added successfully');
+                this.OnCloseForm();
+              },
+              error: (err:any) => {
+                this.hotToast.error(`Failed to update product UID: ${err.message}`);
+              }
+            });
           },
           error: (err) => {
             this.hotToast.error(`Failed to add product: ${err.message}`);
