@@ -35,19 +35,8 @@ export class UsersService {
       })
     )
   }
-  // TODOD:
-  // getAllUserUids(): Observable<string[]> {
-  //   const usersRef = collection(this.firestore, 'users')
-  //   return  from(getDocs(usersRef)).pipe(
-  //     map(snapshot => {
-  //       return snapshot.docs.map(doc=>{
-  //         const user = doc.data()as UserInfo
-  //         return {...user}
-  //       })
-  //     })
-  //   )
 
-  // }
+
 
   addUser(user: ProfileUser): Observable<any> {
     const ref = doc(this.firestore, 'users', user.uid); // Assuming displayName is the username

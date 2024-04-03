@@ -24,6 +24,7 @@
             </div>
           </div>
           <mat-card-content>Price: {{ product.price }}</mat-card-content>
+          <button mat-stroked-button color="warn" (click)="confirmDelete(product)">Delete</button>
         </mat-card>
       </div>
       <div *ngIf="viewProductClicked" >
