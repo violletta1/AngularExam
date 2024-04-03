@@ -9,7 +9,9 @@ import { OrdersService } from '../orders.service';
   templateUrl: './add-order.component.html',
   styleUrls: ['./add-order.component.css']
 })
-export class AddOrderComponent implements OnInit  {
+export class AddOrderComponent 
+implements OnInit 
+ {
   orders: Product[] = [];
   user$ = this.userService.getCurrentUserData;
   constructor(private productService: ProductsService,private userService:UsersService,private orderService: OrdersService) { }
